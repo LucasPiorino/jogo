@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quiz de Personalidade — Personagens do Ziraldo</title>
+  <meta name="description" content="Jogo de quiz de personalidade inspirado nos personagens do Ziraldo." />
+  <link rel="stylesheet" href="css/quiz.css" />
+</head>
+<body>
+  <div class="wrap">
+    <main class="card" role="main" aria-labelledby="quiz-title">
+      <header class="header">
+        <div class="title" id="quiz-title">Quiz de Personalidade — Personagens do Ziraldo</div>
+        <p class="subtitle">
+          Descubra com qual espírito de personagem você combina:
+          <strong>Menino Maluquinho</strong>, <strong>Pererê</strong>,
+          <strong>Flicts</strong> ou <strong>Bichinho da Maçã</strong>.
+        </p>
+        <div class="progress" aria-label="Progresso">
+          <div id="progress-bar"></div>
+        </div>
+      </header>
+
+      <section class="content">
+        <!-- Caixa de Perguntas -->
+        <div class="question-box" id="question-box" aria-live="polite">
+          <div class="question-index" id="q-index">Pergunta 1 de 10</div>
+          <div class="question-text" id="q-text">Carregando…</div>
+          <div class="options" id="options">
+            <!-- opções via JS -->
+          </div>
+
+          <div class="nav">
+            <button class="btn secondary" id="prev" aria-label="Voltar (tecla ←)">← Voltar</button>
+            <div class="spacer"></div>
+            <div class="nav-right">
+              <button class="btn secondary" id="skip" aria-label="Pular (tecla S)">Pular</button>
+              <button class="btn" id="next" aria-label="Próximo (tecla → ou Enter)">Próximo →</button>
+            </div>
+          </div>
+          <small class="hint">
+            Dica: use <kbd>1–4</kbd> para marcar opções, <kbd>Enter</kbd>/<kbd>→</kbd> para avançar,
+            <kbd>←</kbd> para voltar e <kbd>S</kbd> para pular.
+          </small>
+        </div>
+
+        <!-- Resultados -->
+        <div class="result" id="result">
+          <div class="result-card">
+            <div class="result-head">
+              <div class="badge" id="res-badge">★</div>
+              <div class="result-title" id="res-title">Seu resultado</div>
+            </div>
+            <div class="result-grid">
+              <div class="col">
+                <p id="res-desc">Descrição do personagem…</p>
+                <div class="traits" id="res-traits">
+                  <!-- chips -->
+                </div>
+              </div>
+              <div class="col">
+                <div class="share">
+                  <button class="btn" id="restart">Jogar de novo</button>
+                  <button class="btn secondary" id="copy">Copiar resultado</button>
+                </div>
+                <small class="muted">
+                  Este quiz é uma brincadeira inspirada em temas e personagens do Ziraldo.
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/quiz.js" defer></script>
+</body>
+</html>
