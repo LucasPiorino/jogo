@@ -7,6 +7,7 @@ let score = 0;
 let gameRunning = false;
 let gameInterval;
 let spawnRate = 1000; // tempo entre surgimento dos personagens
+let gameStarted = false; // nova variável para controlar se o jogo já começou
 
 // Personagens do Ziraldo (imagens locais + sons externos)
 const characters = [
@@ -30,6 +31,13 @@ const characters = [
         som: "https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg",
         pontos: 20,
         tempo: 600
+    },
+    {
+        nome: "Player",
+        img: "img/player.png",
+        som: "https://actions.google.com/sounds/v1/cartoon/pop.ogg",
+        pontos: 25,
+        tempo: 500
     }
 ];
 
@@ -46,9 +54,12 @@ function spawnCharacter() {
     img.src = char.img;
     img.classList.add('character');
 
+    // Obter tamanho real do personagem baseado no CSS
+    const charSize = window.innerWidth <= 480 ? 50 : window.innerWidth <= 768 ? 60 : 80;
+    
     // posição aleatória dentro da área
-    const x = Math.random() * (gameArea.clientWidth - 80);
-    const y = Math.random() * (gameArea.clientHeight - 80);
+    const x = Math.random() * (gameArea.clientWidth - charSize);
+    const y = Math.random() * (gameArea.clientHeight - charSize);
     img.style.left = `${x}px`;
     img.style.top = `${y}px`;
 
@@ -74,8 +85,15 @@ function spawnCharacter() {
 function startGame() {
     if (gameRunning) return;
     gameRunning = true;
-    score = 0;
-    scoreDisplay.textContent = `Pontuação: ${score}`;
+    
+    // Só reinicia a pontuação se for a primeira vez
+    if (!gameStarted) {
+        score = 0;
+        scoreDisplay.textContent = `Pontuação: ${score}`;
+        gameStarted = true;
+        startBtn.textContent = "Retomar"; // muda o texto do botão
+    }
+    
     startBtn.disabled = true;
     pauseBtn.disabled = false;
 

@@ -4,25 +4,25 @@
 const CHARACTERS = {
   MALUQUINHO: {
     nome: "Menino Maluquinho",
-    badge: "🎩",
+    img: "img/player.png",
     desc: "Criativo, divertido e leal aos amigos. Você transforma a rotina em aventura, lidera com bom humor e vive colecionando histórias.",
     traits: ["criatividade", "amizade", "alegria", "energia"]
   },
   PERERE: {
     nome: "Pererê (Saci)",
-    badge: "🍃",
+    img: "img/perere.png",
     desc: "Espírito livre da mata, amante de travessuras do bem. Você é sagaz, rápido nas respostas e tem um pé (ou dois!) na natureza.",
     traits: ["liberdade", "humor sagaz", "natureza", "improviso"]
   },
   FLICTS: {
     nome: "Flicts",
-    badge: "🟦",
+    img: "img/flicts.jpg",
     desc: "Sensível, único e persistente na própria jornada. Você busca seu lugar no mundo sem abrir mão da sua cor interior.",
     traits: ["sensibilidade", "originalidade", "resiliência", "introspecção"]
   },
   BICHINHO: {
     nome: "Bichinho da Maçã",
-    badge: "🍎",
+    img: "img/maça.png",
     desc: "Curioso, paciente e observador. Você vai cavando com método, aprendendo com cada camada até chegar ao coração das coisas.",
     traits: ["curiosidade", "paciência", "detalhismo", "persistência"]
   }
@@ -87,10 +87,10 @@ const QUESTIONS = [
   {
     q: "Qual frase combina mais?",
     opts: [
-      { k: "A", t: "“A vida é pra ser celebrada com quem a gente ama.”", tag: "afeto", map: "MALUQUINHO" },
-      { k: "B", t: "“Liberdade é o melhor dos ventos.”", tag: "liberdade", map: "PERERE" },
-      { k: "C", t: "“Ser diferente é meu superpoder.”", tag: "autenticidade", map: "FLICTS" },
-      { k: "D", t: "“A curiosidade cava caminhos.”", tag: "curiosidade", map: "BICHINHO" },
+      { k: "A", t: "A vida é pra ser celebrada com quem a gente ama.", tag: "afeto", map: "MALUQUINHO" },
+      { k: "B", t: "Liberdade é o melhor dos ventos.", tag: "liberdade", map: "PERERE" },
+      { k: "C", t: "Ser diferente é meu superpoder.", tag: "autenticidade", map: "FLICTS" },
+      { k: "D", t: "A curiosidade cava caminhos.", tag: "curiosidade", map: "BICHINHO" },
     ]
   },
   {
@@ -126,8 +126,8 @@ const QUESTIONS = [
 // STATE
 // ==========================
 const state = {
-  i: 0, // índice da pergunta atual
-  answers: Array(QUESTIONS.length).fill(null), // guarda a chave do personagem
+  i: 0,
+  answers: Array(QUESTIONS.length).fill(null),
 };
 
 // ==========================
@@ -138,8 +138,6 @@ const qIndex = document.getElementById('q-index');
 const qText  = document.getElementById('q-text');
 const qOpts  = document.getElementById('options');
 const btnPrev = document.getElementById('prev');
-const btnNext = document.getElementById('next');
-const btnSkip = document.getElementById('skip');
 const pBar = document.getElementById('progress-bar');
 
 const resWrap = document.getElementById('result');
@@ -158,7 +156,6 @@ function renderQuestion(){
   const total = QUESTIONS.length;
   const q = QUESTIONS[i];
 
-  // Progresso (respondidas/total)
   const answeredCount = state.answers.filter(v => v !== null).length;
   const prog = Math.round((Math.max(answeredCount, i) / total) * 100);
   pBar.style.width = prog + "%";
@@ -166,7 +163,6 @@ function renderQuestion(){
   qIndex.textContent = `Pergunta ${i+1} de ${total}`;
   qText.textContent = q.q;
 
-  // Limpa opções
   qOpts.innerHTML = "";
 
   q.opts.forEach((opt, idx) => {
@@ -191,23 +187,21 @@ function renderQuestion(){
     });
 
     if (chosen) {
-      el.style.borderColor = 'rgba(150,196,255,.5)';
-      el.style.background = 'rgba(150,196,255,.12)';
+      el.style.borderColor = 'rgba(251, 195, 97, 0.5)';
+      el.style.background = 'rgba(251, 195, 97, 0.12)';
     }
 
     qOpts.appendChild(el);
   });
 
-  // Botões navegação
   btnPrev.disabled = (i === 0);
-  btnNext.textContent = (i === total - 1) ? "Ver resultado →" : "Próximo →";
 }
 
 function signalSelect(el){
   el.style.transform = 'translateY(-1px) scale(1.01)';
-  el.style.boxShadow = '0 12px 28px rgba(0,0,0,.28)';
-  el.style.borderColor = 'rgba(150,196,255,.6)';
-  el.style.background = 'rgba(150,196,255,.14)';
+  el.style.boxShadow = '0 12px 28px rgba(251, 195, 97, 0.28)';
+  el.style.borderColor = 'rgba(251, 195, 97, 0.6)';
+  el.style.background = 'rgba(251, 195, 97, 0.14)';
   setTimeout(() => {
     el.style.transform = '';
     el.style.boxShadow = '';
@@ -228,11 +222,6 @@ function goPrev(){
     state.i--;
     renderQuestion();
   }
-}
-
-function skip(){
-  state.answers[state.i] = state.answers[state.i] ?? null;
-  goNext();
 }
 
 // ==========================
@@ -273,7 +262,9 @@ function showResult(){
 
   resTitle.textContent = `${res.data.nome}${res.mixNote}`;
   resDesc.textContent  = res.data.desc;
-  resBadge.textContent = res.data.badge;
+  
+  // Usar imagem em vez de emoji
+  resBadge.innerHTML = `<img src="${res.data.img}" alt="${res.data.nome}">`;
 
   resTraits.innerHTML = "";
   res.data.traits.forEach(t => {
@@ -343,9 +334,7 @@ function flashCopy(ok=true){
 // ==========================
 // EVENTS
 // ==========================
-btnNext.addEventListener('click', goNext);
 btnPrev.addEventListener('click', goPrev);
-btnSkip.addEventListener('click', skip);
 btnRestart?.addEventListener('click', restart);
 btnCopy?.addEventListener('click', copyResult);
 
@@ -359,9 +348,7 @@ window.addEventListener('keydown', (e) => {
     if (key === 'c'){ copyResult(); }
     return;
   }
-  if (key === 'arrowright' || key === 'enter'){ e.preventDefault(); goNext(); }
   if (key === 'arrowleft'){ e.preventDefault(); goPrev(); }
-  if (key === 's'){ e.preventDefault(); skip(); }
   if (['1','2','3','4'].includes(key)){
     const idx = parseInt(key,10) - 1;
     const btn = document.getElementById('options').querySelectorAll('.option')[idx];
