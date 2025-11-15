@@ -356,5 +356,4 @@ window.addEventListener('keydown', (e) => {
   }
 });
 
-// Inicializa
 renderQuestion();

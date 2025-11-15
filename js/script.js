@@ -54,16 +54,13 @@ function spawnCharacter() {
     img.src = char.img;
     img.classList.add('character');
 
-    // Obter tamanho real do personagem baseado no CSS
     const charSize = window.innerWidth <= 480 ? 50 : window.innerWidth <= 768 ? 60 : 80;
     
-    // posição aleatória dentro da área
     const x = Math.random() * (gameArea.clientWidth - charSize);
     const y = Math.random() * (gameArea.clientHeight - charSize);
     img.style.left = `${x}px`;
     img.style.top = `${y}px`;
 
-    // evento de clique
     img.addEventListener('click', () => {
         score += char.pontos;
         scoreDisplay.textContent = `Pontuação: ${score}`;
@@ -74,7 +71,6 @@ function spawnCharacter() {
     gameArea.appendChild(img);
     playSound(char.som);
 
-    // desaparece após o tempo definido
     setTimeout(() => {
         if (gameArea.contains(img)) {
             gameArea.removeChild(img);
@@ -86,7 +82,6 @@ function startGame() {
     if (gameRunning) return;
     gameRunning = true;
     
-    // Só reinicia a pontuação se for a primeira vez
     if (!gameStarted) {
         score = 0;
         scoreDisplay.textContent = `Pontuação: ${score}`;

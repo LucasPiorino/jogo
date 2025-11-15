@@ -1,16 +1,16 @@
 /* ===== Variáveis e reset leve ===== */
 :root{
-  --bg: #FFF5E4;           /* bege suave */
-  --panel: #FFFFFF;        /* branco limpo */
-  --ink: #3E2723;          /* marrom escuro */
-  --muted: #5D4037;        /* marrom médio */
-  --brand: #FBC361;        /* amarelo do banner */
-  --brand-2: #4CAF50;      /* verde alegre */
-  --accent: #81C784;       /* verde menta hover */
-  --ok: #AED581;           /* verde pastel */
+  --bg: #FFF5E4;           
+  --panel: #FFFFFF;       
+  --ink: #3E2723;         
+  --muted: #5D4037;       
+  --brand: #FBC361;       
+  --brand-2: #4CAF50;     
+  --accent: #81C784;       
+  --ok: #AED581;        
   --warn: #FBC361;
   --err: #E57373;
-  --border: #E0C097;       /* borda amarelada */
+  --border: #E0C097;       
   --radius: 16px;
   --radius-sm: 10px;
   --shadow: 0 4px 12px rgba(108, 78, 49, 0.15);
@@ -29,7 +29,6 @@ body{
 a{ color: var(--brand-2); text-decoration: none; }
 a:hover{ text-decoration: underline; }
 
-/* ===== Layout principal ===== */
 .wrap{
   min-height: 100dvh;
   display: grid;
@@ -62,7 +61,6 @@ a:hover{ text-decoration: underline; }
   font-size: clamp(.9rem, .8rem + .4vw, 1rem);
 }
 
-/* ===== Barra de progresso ===== */
 .progress{
   height: 10px;
   background: rgba(224, 192, 151, 0.3);
@@ -77,7 +75,6 @@ a:hover{ text-decoration: underline; }
   transition: width var(--speed) ease;
 }
 
-/* ===== Conteúdo ===== */
 .content{
   padding: 18px 22px 22px;
   display: grid;
@@ -269,7 +266,6 @@ kbd{
   border: 1px solid #81C784;
 }
 
-/* ===== Acessibilidade ===== */
 :focus-visible{ outline: none; box-shadow: var(--focus); }
 
 /* ===== Responsividade ===== */
